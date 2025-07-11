@@ -14,10 +14,6 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # Inherit from a04e device
 $(call inherit-product, device/samsung/a04e/device.mk)
 
-# Inherit from hq-camera-samsung
-$(call inherit-product, vendor/samsung/hq-camera/hqcamera-samsung-hs04.mk)
-
-TARGET_EXCLUDES_AUDIOFX := true
 PRODUCT_DEVICE := a04e
 PRODUCT_NAME := lineage_a04e
 PRODUCT_BRAND := Samsung
