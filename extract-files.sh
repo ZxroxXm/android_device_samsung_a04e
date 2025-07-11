@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE=a05m
+DEVICE=a04e
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks
@@ -52,6 +52,22 @@ done
 if [ -z "${SRC}" ]; then
     SRC="adb"
 fi
+
+function blob_fixup() {
+    case "${1}" in
+        vendor/lib*/libwvhidl.so | vendor/lib*/mediadrm/libwvdrmengine.so)
+            grep -q "libprotobuf-cpp-lite-3.9.1.so" "${2}" && \
+            "${PATCHELF}" --replace-needed "libprotobuf-cpp-lite-3.9.1.so" "libprotobuf-cpp-full-3.9.1.so" "${2}"
+            ;;
+        vendor/bin/hw/android.hardware.thermal@2.0-service.mtk)
+            "${PATCHELF}" --replace-needed "libhidlbase.so" "libhidlbase-v32.so" "${2}"
+            ;;
+        vendor/bin/mnld | vendor/lib*/libaal_key.so | vendor/lib*/libcam.utils.sensorprovider.so)
+            grep -q "libsensorndkbridge.so" "${2}" && \
+            "${PATCHELF}" --replace-needed "libsensorndkbridge.so" "libsensorndkbridge-hidl.so" "${2}"
+            ;;
+    esac
+}
 
 # Initialize the helper
 setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
