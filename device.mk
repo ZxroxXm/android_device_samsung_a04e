@@ -346,7 +346,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
+    hardware/lineage/interfaces/power-libperfmgr \
     hardware/google/pixel \
+    hardware/mediatek/libmtkperf_client \
     hardware/mediatek \
     hardware/samsung_ext
 
