@@ -260,10 +260,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     system_ext_31.0.cil
 
-# MTK
-PRODUCT_PACKAGES += \
-    MtkInCallService 
-
 # Overlays
 PRODUCT_PACKAGES += \
     CarrierConfigOverlayA04e \
